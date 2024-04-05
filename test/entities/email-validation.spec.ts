@@ -5,4 +5,9 @@ describe('Email validation', () => {
     const email = null
     expect(valid(email)).toBeFalsy()
   })
+
+  it('should not accept empty strings', () => {
+    const email = null
+    expect(valid(email)).toBeFalsy()
+  })
 })
