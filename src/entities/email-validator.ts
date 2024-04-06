@@ -1,5 +1,8 @@
 export function valid(email: string): boolean {
-  return !isEmpty(email)
+  const maxEmailSize = 320
+  const validators = [isEmpty]
+
+  return validators.every((validator) => validator(email) === false)
 }
 
 function isEmpty(str: string): boolean {
