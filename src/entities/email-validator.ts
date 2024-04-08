@@ -4,6 +4,8 @@ export function valid(email: string): boolean {
     isEmpty,
     isTooLarge.bind(null, maxEmailSize),
     domainTooLarge,
+    localTooLarge,
+    somePartIsTooLargeIn,
   ]
 
   return validators.every((validator) => validator(email) === false)
@@ -20,4 +22,15 @@ function isTooLarge(maxSize: number, str: string): boolean {
 function domainTooLarge(email: string): boolean {
   const [_, domain] = email.split('@')
   return isTooLarge(255, domain)
+}
+
+function localTooLarge(email: string): boolean {
+  const [local, _] = email.split('@')
+  return isTooLarge(64, local)
+}
+
+function somePartIsTooLargeIn(email: string): boolean {
+  const [_, domain] = email.split('@')
+  const domainParts = domain.split('.')
+  return domainParts.some((part) => part.length > 63)
 }
